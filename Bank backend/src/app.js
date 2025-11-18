@@ -1,12 +1,19 @@
-import express from "express";
-import cors from "cors";
-import authRoutes from "./routes/auth.js";
-
+const express = require("express");
 const app = express();
-app.use(cors());
+
 app.use(express.json());
 
-// Routes
-app.use("/auth", authRoutes);
+// ROUTES
+app.use("/api/fatura", require("./routes/fatura"));
+app.use("/api/hesap", require("./routes/hesap"));
+app.use("/api/islem", require("./routes/islem"));
+app.use("/api/kart", require("./routes/kart"));
+app.use("/api/kullanici", require("./routes/kullanici"));
+app.use("/api/log", require("./routes/log"));
+app.use("/api/lookup", require("./routes/lookup"));
 
-export default app;
+// ERROR HANDLER
+const errorHandler = require("./middlewares/errorHandler");
+app.use(errorHandler);
+
+module.exports = app;
